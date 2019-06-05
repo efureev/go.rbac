@@ -1,6 +1,8 @@
-package rbac
+package gorbac
 
-import "strings"
+import (
+	"strings"
+)
 
 // Permission exports `Id` and `Match`
 type Permission interface {
@@ -61,7 +63,7 @@ func (p *DeepPermission) Match(a Permission) bool {
 	}
 	pLayers := strings.Split(p.IDStr, p.Sep)
 	qLayers := strings.Split(q.IDStr, q.Sep)
-	// layer counts of q should be less than that of p
+
 	if len(pLayers) > len(qLayers) {
 		return false
 	}
