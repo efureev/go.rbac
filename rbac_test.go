@@ -285,7 +285,7 @@ func BenchmarkRbacNotGranted(b *testing.B) {
 	}
 }
 
-func ExampleRbac() {
+func TestRbac(t *testing.T) {
 	rbac := New()
 
 	//roleAuthor := NewRole("author")

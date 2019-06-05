@@ -14,9 +14,7 @@ func TestSimpleRole(t *testing.T) {
 	if !rA.Permit(NewPermission("permission-a")) {
 		t.Fatal("[permission-a] should permit to rA")
 	}
-	/*if !rA.PermitOld(NewPermission("permission-a")) {
-		t.Fatal("[permission-a] should permit to rA")
-	}*/
+
 	if len(rA.Permissions()) != 1 {
 		t.Fatal("[a] should have one permission")
 	}
@@ -27,9 +25,7 @@ func TestSimpleRole(t *testing.T) {
 	if rA.Permit(NewPermission("permission-a")) {
 		t.Fatal("[permission-a] should not permit to rA")
 	}
-	/*if rA.PermitOld(NewPermission("permission-a")) {
-		t.Fatal("[permission-a] should not permit to rA")
-	}*/
+
 	if len(rA.Permissions()) != 0 {
 		t.Fatal("[a] should not have any permission")
 	}
@@ -38,18 +34,6 @@ func TestSimpleRole(t *testing.T) {
 		t.Fatal("permission should not nil")
 	}
 }
-/*
-func BenchmarkSimpleRole_PermitOld(b *testing.B) {
-	rA := NewRole("role-a")
-	rA.Assign(NewPermission("permission-a"))
-	np := NewPermission("permission-a")
-
-	for i := 0; i < b.N; i++ {
-		if !rA.PermitOld(np) {
-			b.Fatal("[permission-a] should permit to rA")
-		}
-	}
-}*/
 
 func BenchmarkSimpleRole_Permit(b *testing.B) {
 	rA := NewRole("role-a")

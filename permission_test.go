@@ -37,7 +37,6 @@ func TestSimplePermission(t *testing.T) {
 	}
 }
 
-
 func TestLayerPermission(t *testing.T) {
 	profile1 := NewDeepPermission("profile")
 	profile2 := NewDeepPermission("profile")

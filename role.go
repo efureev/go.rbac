@@ -46,24 +46,6 @@ func (role *SimpleRole) Assign(p Permission) *SimpleRole {
 	return role
 }
 
-// PermitOld returns true if the role has specific permission.
-// @deprecated
-/*func (role *SimpleRole) PermitOld(p Permission) (res bool) {
-	if p == nil {
-		return false
-	}
-
-	role.RLock()
-	for _, rp := range role.permissions {
-		if rp.Match(p) {
-			res = true
-			break
-		}
-	}
-	role.RUnlock()
-	return
-}*/
-
 // Permit returns true if the role has specific permission.
 func (role *SimpleRole) Permit(p Permission) (res bool) {
 	if p == nil {
