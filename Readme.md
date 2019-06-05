@@ -6,7 +6,13 @@
 [![codecov](https://codecov.io/gh/efureev/go.rbac/branch/master/graph/badge.svg)](https://codecov.io/gh/efureev/go.rbac)
 [![Go Report Card](https://goreportcard.com/badge/github.com/efureev/go.rbac)](https://goreportcard.com/report/github.com/efureev/go.rbac)
 
-role-based access control
+Role-Based Access Control
+
+Thus, RBAC has the following model:
+
+* many to many relationship between identities and roles.
+* many to many relationship between roles and permissions.
+* roles can have a parent role (inheriting permissions).
 
 ## Install
 ```bash
