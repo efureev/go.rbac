@@ -1,4 +1,4 @@
-module rbac
+module gorbac
 
 go 1.12
 

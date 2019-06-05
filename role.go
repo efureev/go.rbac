@@ -54,8 +54,11 @@ func (role *SimpleRole) Permit(p Permission) (res bool) {
 
 	role.RLock()
 
-	if _, ok := role.permissions[p.ID()]; ok {
-		res = true
+	for _, rp := range role.permissions {
+		if rp.Match(p) {
+			res = true
+			break
+		}
 	}
 
 	role.RUnlock()
