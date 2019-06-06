@@ -167,12 +167,12 @@ func (rbac *RBAC) GetRole(id string) (r Role, parents []string, err error) {
 }
 
 // GetRoles returns role list
-func (rbac *RBAC) GetRoles() []*Role {
+func (rbac *RBAC) GetRoles() []Role {
 	rbac.mutex.RLock()
 
-	result := make([]*Role, 0, len(rbac.roles))
+	result := make([]Role, 0, len(rbac.roles))
 	for _, r := range rbac.roles {
-		result = append(result, &r)
+		result = append(result, r)
 	}
 
 	rbac.mutex.RUnlock()

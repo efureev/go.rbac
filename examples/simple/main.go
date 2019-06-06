@@ -1,7 +1,7 @@
 package main
 
 import (
-	"gorbac"
+	"github.com/efureev/go.rbac"
 	"log"
 	"strings"
 )
@@ -45,7 +45,7 @@ var rolesTree = map[string]string{
 
 func main() {
 
-	/*h := func(r gorbac.Role, parents []string) error {
+	h := func(r gorbac.Role, parents []string) error {
 		log.Printf("- Role: %v", r.ID())
 		permissions := make([]string, 0)
 		for _, p := range r.Permissions() {
@@ -58,7 +58,6 @@ func main() {
 	}
 
 	gorbac.Walk(rbac, h)
-	*/
 
 	granted(`root`, `task:read`)
 	granted(`root`, `task`)
