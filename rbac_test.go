@@ -360,3 +360,75 @@ func TestRbac(t *testing.T) {
 	// The role 'Admin` has been granted on roles: moderator, editor, photographer and permissions: root.
 	// The MODERATOR has been granted editor, photographer and permissions: photo-delete and text-delete.
 }
+
+func TestRbacDeepPermissions(t *testing.T) {
+	rbac := New()
+
+	roleUser := NewRole("user")
+	roleAdmin := NewRole("admin")
+	roleRoot := NewRole("root")
+	roleModer := NewRole("moder")
+
+	pUserRead := NewDeepPermission("user:read")
+	pUserDelete := NewDeepPermission("user:delete")
+	pAdminUsersRead := NewDeepPermission("admin:users:read")
+	pAdminUsers := NewDeepPermission("admin:users")
+	pAdmin := NewDeepPermission("admin")
+
+	roleUser.
+		Assign(pUserRead)
+
+	//roleModer.
+	//	Assign(pAdminUsersRead)
+
+	roleAdmin.
+		Assign(pUserDelete).
+		Assign(pAdminUsers)
+
+	roleRoot.
+		Assign(pAdmin)
+
+	rbac.Add(roleAdmin)
+	rbac.Add(roleUser)
+	rbac.Add(roleModer)
+	rbac.Add(roleRoot)
+
+	rbac.SetParent("moder", "user")
+	rbac.SetParent("admin", "user")
+
+	if !(rbac.IsGranted("user", pUserRead, nil) &&
+		!rbac.IsGranted("user", pUserDelete, nil) &&
+		!rbac.IsGranted("user", pAdminUsersRead, nil)) {
+		t.Fail()
+	}
+
+	if !(rbac.IsGranted("moder", pUserRead, nil) &&
+		!rbac.IsGranted("moder", pUserDelete, nil) &&
+		!rbac.IsGranted("moder", pAdminUsersRead, nil) &&
+		!rbac.IsGranted("moder", NewDeepPermission(`admin:users`), nil) &&
+		!rbac.IsGranted("moder", NewDeepPermission(`admin:users:read`), nil)) {
+		t.Fail()
+	}
+
+	if !(rbac.IsGranted("admin", pUserRead, nil) &&
+		rbac.IsGranted("admin", pUserDelete, nil) &&
+		rbac.IsGranted("admin", pAdminUsersRead, nil) &&
+		rbac.IsGranted("admin", NewDeepPermission(`admin:users`), nil) &&
+		rbac.IsGranted("admin", NewDeepPermission(`admin:users:delete`), nil) &&
+		rbac.IsGranted("admin", NewDeepPermission(`admin:users:*`), nil) &&
+		!rbac.IsGranted("admin", NewDeepPermission(`admin`), nil) &&
+		rbac.IsGranted("admin", NewDeepPermission(`admin:users:read`), nil)) {
+		t.Fail()
+	}
+
+	if !(!rbac.IsGranted("root", pUserRead, nil) &&
+		!rbac.IsGranted("root", pUserDelete, nil) &&
+		rbac.IsGranted("root", pAdminUsersRead, nil) &&
+		rbac.IsGranted("root", NewDeepPermission(`admin:users`), nil) &&
+		rbac.IsGranted("root", NewDeepPermission(`admin:users:delete`), nil) &&
+		rbac.IsGranted("root", NewDeepPermission(`admin:users:*`), nil) &&
+		rbac.IsGranted("root", NewDeepPermission(`admin`), nil) &&
+		rbac.IsGranted("root", NewDeepPermission(`admin:users:read`), nil)) {
+		t.Fail()
+	}
+}
