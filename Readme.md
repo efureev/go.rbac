@@ -1,5 +1,6 @@
 # RBAC
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/368c1238d8e345bcbd2a558c5c76db8b)](https://app.codacy.com/app/efureev/go.rbac?utm_source=github.com&utm_medium=referral&utm_content=efureev/go.rbac&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.org/efureev/go.rbac.svg?branch=master)](https://travis-ci.org/efureev/go.rbac)
 [![Maintainability](https://api.codeclimate.com/v1/badges/85716e4950f05fafec2a/maintainability)](https://codeclimate.com/github/efureev/go.rbac/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/85716e4950f05fafec2a/test_coverage)](https://codeclimate.com/github/efureev/go.rbac/test_coverage)
